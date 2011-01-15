@@ -3,32 +3,32 @@
 <head>
 	<title>jQuery hotSwap</title>
 	<style type="text/css">
-		.swap-wrapper { width:930px; height:460px; margin:0 auto; background:#000; overflow: hidden!important; }
+		.swap-wrapper { width:930px; height:460px; margin:0 auto; background:#000; overflow:hidden!important; }
 		.swap-inner { position:relative; top:20px; z-index:999; }
 		.swap-nav { position:relative; top:180px; cursor:pointer; z-index:99; }
-		.right {  position:absolute; left:838px; top:5px; z-index:9; cursor:pointer; }
-		.left { position:absolute; left:59px; z-index:9; cursor:pointer; }
+		.right {  position:absolute; right:60px; top:5px; z-index:9; }
+		.left { position:absolute; left:60px; z-index:9; }
 		#left,
 		#middle,
-		#right { width:684px; height:420px; background:#eee; position:absolute; }
-		#left { left:-620px;}
-		#middle { left:125px; }
-		#right { left:870px; }		
+		#right { width:685px; height:420px; background:#eee; position:absolute; }
+		#left { left:-620px; }
+		#middle { left:122px; }
+		#right { left:865px; }
 	</style>
 </head>
-<body>	
+<body>
 	<div class="swap-wrapper">
 		<div class="swap-nav">
-			<img src="swap-left.png" alt="Swap Left" class="left" />
-			<img src="swap-right.png" alt="Swap Right" class="right" />
+			<a href="#" class="left"><img src="swap-left.png" alt="Swap Left" /></a>
+			<a href="#" class="right"><img src="swap-right.png" alt="Swap Right" /></a>
 		</div>
 		
 		<div class="swap-inner">
-			<div id="left"></div>
+			<section id="left"></section>
 
-			<div id="middle"></div>
+			<section id="middle"></section>
 
-			<div id="right"></div>	
+			<section id="right"></section>	
 		</div>
 	</div><!-- end .swap-wrapper -->	
 
