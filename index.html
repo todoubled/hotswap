@@ -4,10 +4,10 @@
 	<title>jQuery hotSwap</title>
 	<style type="text/css">
 		.swap-wrapper { width:930px; height:460px; margin:0 auto; background:#000; overflow: hidden!important; }
-		.swap-inner { position: relative; top:20px; z-index:999; }
-		.swap-tabs { position: relative; top: 180px; cursor: pointer; z-index: 99; }
-		.swapRight {  position: absolute; left:838px; top: 5px; z-index: 9;  cursor: pointer; }
-		.swapLeft { position: absolute; left: 59px; z-index: 9; cursor: pointer; }
+		.swap-inner { position:relative; top:20px; z-index:999; }
+		.swap-nav { position:relative; top:180px; cursor:pointer; z-index:99; }
+		.right {  position:absolute; left:838px; top:5px; z-index:9; cursor:pointer; }
+		.left { position:absolute; left:59px; z-index:9; cursor:pointer; }
 		#left,
 		#middle,
 		#right { width:684px; height:420px; background:#eee; position:absolute; }
@@ -18,6 +18,11 @@
 </head>
 <body>	
 	<div class="swap-wrapper">
+		<div class="swap-nav">
+			<img src="swap-left.png" alt="Swap Left" class="left" />
+			<img src="swap-right.png" alt="Swap Right" class="right" />
+		</div>
+		
 		<div class="swap-inner">
 			<div id="left"></div>
 
@@ -25,18 +30,13 @@
 
 			<div id="right"></div>	
 		</div>
-
-		<div class="swap-tabs">
-			<img src="swap-left.png" alt="Swap Left" class="swapLeft" />
-			<img src="swap-right.png" alt="Swap Right" class="swapRight" />
-		</div>
 	</div><!-- end .swap-wrapper -->	
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="jquery.hotswap.js"></script>
 	<script>
 		$(document).ready(function() {
-			//$('.swap-wrapper').hotSwap(); 
+			$('.swap-wrapper').hotSwap(); 
 		});
 	</script>
 </body>
