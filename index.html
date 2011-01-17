@@ -3,27 +3,34 @@
 <head>
 	<title>jQuery hotSwap</title>
 	<style type="text/css">
-		.swap-wrapper { width:930px; height:460px; margin:0 auto; background:#000; overflow:hidden!important; }
-		.swap-inner { position:relative; top:20px; z-index:999; }
-		.swap-nav { position:relative; top:180px; cursor:pointer; z-index:99; }
-		.right {  position:absolute; right:60px; top:5px; z-index:9; }
-		.left { position:absolute; left:60px; z-index:9; }
 		#left,
 		#middle,
-		#right { width:685px; height:420px; background:#eee; position:absolute; }
-		#left { left:-620px; }
-		#middle { left:122px; }
-		#right { left:865px; }
+		#right { background:#eee; }
+		.hotswap { width:500px; height:400px; background:#000; }
+		
+		
+		/* Dynamically written styles */
+		#left,
+		#middle,
+		#right { width:300px; height:400px; }
+		
+		.nav { top:160px; }
+		.right { right:60px; }
+		.left {  left:60px;}
+		#left { left:-240px; }
+		#middle { left:100px; }
+		#right { left:440px; }
+		
 	</style>
 </head>
 <body>
-	<div class="swap-wrapper">
-		<div class="swap-nav">
+	<div class="hotswap">
+		<div class="nav">
 			<a href="#" class="left"><img src="swap-left.png" alt="Swap Left" /></a>
 			<a href="#" class="right"><img src="swap-right.png" alt="Swap Right" /></a>
 		</div>
 		
-		<div class="swap-inner">
+		<div class="items">
 			<section id="left"></section>
 
 			<section id="middle"></section>
@@ -36,7 +43,9 @@
 	<script src="jquery.hotswap.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('.swap-wrapper').hotSwap(); 
+			$('.hotswap').hotswap({
+				item:"section"
+			}); 
 		});
 	</script>
 </body>
