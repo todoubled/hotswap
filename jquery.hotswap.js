@@ -5,7 +5,7 @@ Author:	Todd Larsen | toddlar@gmail.com
 (function() {		
 	$.fn.hotswap = function(options) {
 		var options = $.extend({}, {
-			items:".items",
+			swaps:".items",
 			item:"div",
 			wrapper:".hotswap",
 			nav:".nav",
@@ -18,17 +18,18 @@ Author:	Todd Larsen | toddlar@gmail.com
 		// Create as many hotswaps as needed
 		$(this).each(function() {
 			var swaps = [ ],
-				$eachSwap = $(this).find(options.items).find(options.item),
+				$eachSwap = $(this).find(options.swaps).find(options.item),
 				$leftCtl = $(this).find(options.nav).find(options.leftCtlSelector),
 				$rightCtl = $(this).find(options.nav).find(options.rightCtlSelector),
+				$nav = $(this).find(options.nav),
 				temp;
 				
 			// Base CSS for hotswap wrappers
-			$(options.items).css({
+			$(options.swaps).css({
 				"position":"relative",
 				"z-index":999
 			});
-			$(options.items).parent().css("overflow", "hidden");
+			$(options.swaps).parent().css("overflow", "hidden");
 			$(options.nav).css({
 				"position":"relative",
 				"z-index":99 
@@ -58,7 +59,10 @@ Author:	Todd Larsen | toddlar@gmail.com
 			});
 			
 			// Dynamically position the hotswap elements and navigation
-			
+			var navHeight = $rightCtl.height(),
+				navPx = navHeight * 2;
+		
+			$nav.css("top", navPx);
 			
 			
 			
