@@ -58,17 +58,22 @@ Author:	Todd Larsen | toddlar@gmail.com
 				});
 			});
 			
-			// Dynamically position the hotswap elements and navigation
+			// Position navigation container
 			var navHeight = $rightCtl.height(),
-				navPx = navHeight * 2;
-		
-			$nav.css("top", navPx);
+				navPos = parseInt(($(options.wrapper).height() / 2) - (navHeight / 2));
+			$nav.css("top", navPos);
 			
+			// Position each navigation tab
 			
+			// Set height and width of each hotswap item
+			var swapHeight = $(options.wrapper).height();
+			$eachSwap.css({
+				height:swapHeight
+			});
 			
-			
-			
-			
+			// Set position of left item
+			// Set position of center item
+			// Set position of right item
 
 			// Get positions of each hotswap item
 			var left = $('#' + swaps[0]).position().left,
