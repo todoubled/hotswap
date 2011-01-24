@@ -35,10 +35,10 @@ Author:	Todd Larsen | toddlar@gmail.com
 				eachNavCSS = { "position":"absolute","z-index":9 },
 				itemCSS = { "width":swapWidth * 0.6, "position": "absolute", "height":swapHeight },
 				navFromSide = swapWidth / 10,
+				left = -(swapWidth / 2),
+				right = swapWidth - navFromSide,
+				middle = navFromSide * 2,
 				navPos,
-				left = -250,
-				right = 450,
-				middle = 100,
 				autoLeft,
 				autoRight,
 				temp;
