@@ -12,80 +12,77 @@ Author:	Todd Larsen | toddlar@gmail.com
 			leftCtlSelector:".left",
 			rightCtlSelector:".right",
 			speed:400,
+			auto:false,
+			interval:5000,
 			ctlPosition:"center"
 		}, options);
 		
-		// Create as many hotswaps as needed
+		// Create as many hotswaps per page as needed
 		$(this).each(function() {
-			var swaps = [ ],
-				$eachSwap = $(this).find(options.swaps).find(options.item),
-				$leftCtl = $(this).find(options.nav).find(options.leftCtlSelector),
-				$rightCtl = $(this).find(options.nav).find(options.rightCtlSelector),
-				$nav = $(this).find(options.nav),
+			var $swaps = [ ],
+				$swapWrapper = $(this),
+				$nav = $swapWrapper.find(options.nav),
+				$swapContainer =$swapWrapper.find(options.swaps),
+				$eachSwap = $swapContainer.find(options.item),
+				$leftCtl = $nav.find(options.leftCtlSelector),
+				$rightCtl = $nav.find(options.rightCtlSelector),
+				speed = options.speed,
+				interval = options.interval,
+				swapHeight = parseInt($swapWrapper.height()),
+				swapWidth = parseInt($swapWrapper.width()),
+				navHeight = parseInt($rightCtl.height()),
+				navCSS = { "position":"relative","z-index":99 },
+				eachNavCSS = { "position":"absolute","z-index":9 },
+				itemCSS = { "width":swapWidth * 0.6, "position": "absolute", "height":swapHeight },
+				navFromSide = swapWidth / 10,
+				navPos,
+				left = -250,
+				right = 450,
+				middle = 100,
+				autoLeft,
+				autoRight,
 				temp;
 				
-			// Base CSS for hotswap wrappers
-			$(options.swaps).css({
-				"position":"relative",
-				"z-index":999
-			});
-			$(options.swaps).parent().css("overflow", "hidden");
-			$(options.nav).css({
-				"position":"relative",
-				"z-index":99 
-			});
+			// Process conditional variables
+			switch(options.ctlPosition) {
+				case "top":
+				break;
+				case "center":
+					navPos = (swapHeight / 2) - (navHeight * 2);
+				break;
+				case "bottom":
+					navPos = swapHeight - (navHeight * 2);
+				break;
+			}
 			
-			// Base CSS for hotswap controls
-			$leftCtl.css({
-				"position":"absolute",
-				"z-index":9
-			});
-			$rightCtl.css({
-				"position":"absolute",
-				"z-index":9
-			});
-			
-			// Base CSS for hotswap items
-			$eachSwap.css({
-				"position":"absolute"
-			});
-			
-			// Find hotswap items and store in swaps array
+			// Find and store hotswap items
 			$(this).each(function() {			
 				$eachSwap.each(function() {
 					var ids = $(this).attr("id");
-					swaps.push(ids);
+					$swaps.push(ids);
 				});
 			});
-			
-			// Position navigation container
-			var navHeight = $rightCtl.height(),
-				navPos = parseInt(($(options.wrapper).height() / 2) - (navHeight / 2));
+				
+			// Base CSS for hotswaps and navigation
+			$swapContainer.css({ "position":"relative","z-index":999 });
+			$swapWrapper.css("overflow", "hidden");
+			$nav.css(navCSS);
+			$leftCtl.css(eachNavCSS);
+			$rightCtl.css(eachNavCSS);
+			$eachSwap.css(itemCSS);
 			$nav.css("top", navPos);
-			
-			// Position each navigation tab
-			
-			// Set height and width of each hotswap item
-			var swapHeight = $(options.wrapper).height();
-			$eachSwap.css({
-				height:swapHeight
-			});
-			
-			// Set position of left item
-			// Set position of center item
-			// Set position of right item
-
-			// Get positions of each hotswap item
-			var left = $('#' + swaps[0]).position().left,
-				middle = $('#' + swaps[1]).position().left,
-				right = $('#' + swaps[2]).position().left;
+			$leftCtl.css("left", navFromSide);
+			$rightCtl.css("right", navFromSide);
+			$('#' + $swaps[0]).css("left", left);
+			$('#' + $swaps[1]).css("left", middle);
+			$('#' + $swaps[2]).css("left", right);
 
 			// Move left item to center
 			function leftSwap() {
 				$leftCtl.hide();
-				$('#' + swaps[0]).animate({left:middle}, options.speed);
-				$('#' + swaps[2]).animate({left:right}, options.speed);
-				$('#' + swaps[1]).animate({left:left}, options.speed, function() {
+				$('#' + $swaps[0]).animate({left:middle}, speed);
+				$('#' + $swaps[2]).animate({left:right}, speed);
+				$('#' + $swaps[1]).animate({left:left}, speed, function() {
 					$leftCtl.show();
 				});
 				leftSwapAssign();
@@ -94,63 +91,102 @@ Author:	Todd Larsen | toddlar@gmail.com
 			// Move left item from center back to left
 			function leftSwapReverse() {
 				$leftCtl.hide();
-				$('#' + swaps[1]).animate({left:left}, options.speed);
-				$('#' + swaps[2]).animate({left:right}, options.speed);
-				$('#' + swaps[0]).animate({left:middle}, options.speed, function() {
+				$('#' + $swaps[1]).animate({left:left}, speed);
+				$('#' + $swaps[2]).animate({left:right}, speed);
+				$('#' + $swaps[0]).animate({left:middle}, speed, function() {
 					$leftCtl.show();
 				});
 				leftSwapAssign();
 			}
 
-			// Assign new array order based on movement
+			// Assign new array order based on left swap
 			function leftSwapAssign() {
-				temp = swaps[0];
-				swaps[0] = swaps[1];
-				swaps[1] = temp;
+				temp = $swaps[0];
+				$swaps[0] = $swaps[1];
+				$swaps[1] = temp;
 			}
 
 			// Move right item to center
 			function rightSwap() {
 				$rightCtl.hide();
-				$('#' + swaps[1]).animate({left:right}, options.speed);
-				$('#' + swaps[0]).animate({left:left}, options.speed);
-				$('#' + swaps[2]).animate({left:middle}, options.speed, function() {
+				$('#' + $swaps[1]).animate({left:right}, speed);
+				$('#' + $swaps[0]).animate({left:left}, speed);
+				$('#' + $swaps[2]).animate({left:middle}, speed, function() {
 					$rightCtl.show();
 				});
 				rightSwapAssign();
 			}
 
 			// Move right item from center back to right
-			function rightSwapReverse(){
+			function rightSwapReverse() {
 				$rightCtl.hide();
-				$('#' + swaps[2]).animate({left:middle}, options.speed);
-				$('#' + swaps[0]).animate({left:left}, options.speed);
-				$('#' + swaps[1]).animate({left:right}, options.speed, function() {
+				$('#' + $swaps[2]).animate({left:middle}, speed);
+				$('#' + $swaps[0]).animate({left:left}, speed);
+				$('#' + $swaps[1]).animate({left:right}, speed, function() {
 					$rightCtl.show();
 				});
 				rightSwapAssign();
 			}
 			
-			// Assign new array order based on movement
+			// Assign new array order based on right swap
 			function rightSwapAssign() {
-				temp = swaps[1];
-				swaps[1] = swaps[2];
-				swaps[2] = temp;
+				temp = $swaps[1];
+				$swaps[1] = $swaps[2];
+				$swaps[2] = temp;
 			}
-
-			// Move left content to middle onClick
+			
+			
+			
+			
+			
+			
+			
+			/* Manual Toggles */
 			$leftCtl.toggle(function() {
 				leftSwap();
 			}, function() {
 				leftSwapReverse();
 			});
 
-			//Move right content to middle onClick
 			$rightCtl.toggle(function() {
 				rightSwap();
 			}, function() {
 				rightSwapReverse();
 			});
+			
+			/* Auto Toggles */
+			function autoSwap() {
+				function autoLeftSwap() {
+					autoLeft = setInterval(leftSwap, interval);
+				}
+
+				function autoRightSwap() {
+					autoRight = setInterval(rightSwap, interval);
+				}
+				
+				function initAutoSwap() {
+					autoLeftSwap();
+					setTimeout(autoRightSwap, interval / 2);
+				}
+				
+				function killAutoSwap() {
+					clearInterval(autoLeft);
+					clearInterval(autoRight);
+				}
+				
+				// Start auto-swapping
+				initAutoSwap();
+				
+				// Stop auto-swapping
+				$(''+options.leftCtlSelector+', '+options.rightCtlSelector+'').bind("click", function() {
+					killAutoSwap();
+				});
+			}
+			
+			// Cruise control
+			if (options.auto === true) {
+				autoSwap();
+			}
 		});
     };
 })(jQuery);

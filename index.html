@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>jQuery hotSwap</title>
+	<title>jQuery hotswap</title>
 	<style type="text/css">
 		#left,
 		#middle,
 		#right { background:#eee; }
-		.hotswap { width:500px; height:400px; background:#000; }
-		
-		
-		/* Dynamically written styles */
-		#left,
-		#middle,
-		#right { width:300px; }
-		
-		.right { right:60px; }
-		.left {  left:60px;}
-		#left { left:-240px; }
-		#middle { left:100px; }
-		#right { left:440px; }
-		
+		.hotswap { width:500px; height:300px; background:#000; }
 	</style>
 </head>
-<body>
+<body>	
 	<div class="hotswap">
 		<div class="nav">
 			<a href="#" class="left"><img src="swap-left.png" alt="Swap Left" /></a>
@@ -43,9 +30,10 @@
 	<script>
 		$(document).ready(function() {
 			$('.hotswap').hotswap({
-				item:"section"
+				item:"section",
+				auto:false
 			}); 
-		});
+		});		
 	</script>
 </body>
 </html>
