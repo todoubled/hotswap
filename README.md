@@ -28,8 +28,7 @@ Inclusion of the jQuery library, hotswap.js plugin and a hotswap function call o
 	<script>
 		$(document).ready(function() {
 			$('.hotswap').hotswap({
-				item:"section",
-				auto:false
+				item:"section"
 			}); 
 		});		
 	</script>
@@ -37,7 +36,7 @@ Inclusion of the jQuery library, hotswap.js plugin and a hotswap function call o
 CSS is entirely up to you. The entire hotswap section is built based on the dimensions of the overall hotswap wrapper. See demo.html for a basic example.
 
 
-Options and Their Default Values:
+# Options and Their Default Values:
 
 	swaps: ".items"
 	item: "div"
