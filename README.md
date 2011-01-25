@@ -4,7 +4,7 @@ hotswap.js is a jQuery plugin allows continuous position swap of 3 content areas
 
 # Usage
 
-It requires at the very least base markup like this:
+It requires at the very least base markup of a wrapper, a container for the swappable items, and a container with navigational elements. For example:
 
 	<div class="hotswap">
 		<div class="nav">
@@ -27,16 +27,14 @@ Inclusion of the jQuery library, hotswap.js plugin and a hotswap function call o
 	<script src="jquery.hotswap.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('.hotswap').hotswap({
-				item:"section"
-			}); 
+			$('.hotswap').hotswap(); 
 		});		
 	</script>
 
-CSS is entirely up to you. The entire hotswap section is built based on the dimensions of the overall hotswap wrapper. See demo.html for a basic example.
+CSS is entirely up to you. The entire hotswap is built based on the dimensions of the hotswap wrapper, so that's the only required set of dimensions. See demo.html for a basic example.
 
 
-# Options and Their Default Values:
+# Options:Defaults
 
 	swaps: ".items"
 	item: "div"
