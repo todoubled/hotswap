@@ -21,8 +21,8 @@
       $swaps = [];
       $swapWrapper = $(this);
       $nav = $swapWrapper.find(config.nav);
-      $swapContainer = $swapWrapper.find(config.item);
-      $eachSwap = $swapWrapper.find(config.swaps);
+      $swapContainer = $swapWrapper.find(config.swaps);
+      $eachSwap = $swapWrapper.find(config.item);
       $leftCtl = $nav.find(config.leftCtlSelector);
       $rightCtl = $nav.find(config.rightCtlSelector);
       speed = config.speed;
@@ -63,6 +63,13 @@
       } else if (ctlPosition === 'bottom') {
         navPos = swapHeight - (navHeight * 2);
       }
+      $(this).each(function() {
+        return $eachSwap.each(function() {
+          var id;
+          id = $(this).attr('id');
+          return $swaps.push(id);
+        });
+      });
       $swapContainer.css({
         "position": "relative",
         "z-index": 999

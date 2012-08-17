@@ -17,8 +17,8 @@ $.fn.hotswap = (options) ->
     $swaps = []
     $swapWrapper = $(this)
     $nav = $swapWrapper.find config.nav
-    $swapContainer = $swapWrapper.find config.item
-    $eachSwap = $swapWrapper.find config.swaps
+    $swapContainer = $swapWrapper.find config.swaps
+    $eachSwap = $swapWrapper.find config.item
     $leftCtl = $nav.find config.leftCtlSelector
     $rightCtl = $nav.find config.rightCtlSelector
     speed = config.speed
@@ -55,11 +55,10 @@ $.fn.hotswap = (options) ->
 
 
     # Find and store hotswap items
-    # FIXME: Is this needed?
-    #$(@).each ->
-    #$eachSwap.each ->
-    #id = $(@).attr 'id'
-    #$swaps.push(id)
+    $(@).each ->
+      $eachSwap.each ->
+        id = $(@).attr 'id'
+        $swaps.push(id)
 
 
     # Set up base UI
