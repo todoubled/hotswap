@@ -1,3 +1,50 @@
+# Move left item to center
+leftSwap = ->
+  $leftCtl.hide()
+  $("#" + $swaps[0]).animate middle, speed
+  $("#" + $swaps[2]).animate right, speed
+  $("#" + $swaps[1]).animate left, speed, -> $leftCtl.show()
+  @leftSwapAssign()
+
+
+# Move left item from center back to left
+leftSwapReverse = ->
+  $leftCtl.hide()
+  $("#" + $swaps[1]).animate left, speed
+  $("#" + $swaps[2]).animate right, speed
+  $("#" + $swaps[0]).animate middle, speed, -> $leftCtl.show()
+  @leftSwapAssign()
+
+# Assign new array order based on left swap
+@leftSwapAssign = ->
+  temp = $swaps[0]
+  $swaps[0] = $swaps[1]
+  $swaps[1] = temp
+
+# Move right item to center
+rightSwap = ->
+  $rightCtl.hide()
+  $("#" + $swaps[1]).animate right, speed
+  $("#" + $swaps[0]).animate left, speed
+  $("#" + $swaps[2]).animate middle, speed, -> $rightCtl.show()
+  rightSwapAssign()
+
+# Move right item from center back to right
+rightSwapReverse = ->
+  $rightCtl.hide()
+  $("#" + $swaps[2]).animate middle, speed
+  $("#" + $swaps[0]).animate left, speed
+  $("#" + $swaps[1]).animate right, speed, -> $rightCtl.show()
+  rightSwapAssign()
+
+# Assign new array order based on right swap
+rightSwapAssign = ->
+  temp = $swaps[1]
+  $swaps[1] = $swaps[2]
+  $swaps[2] = temp
+
+
+
 $.fn.hotswap = (options) ->
   defaults =
     swaps: '.items'
@@ -15,7 +62,7 @@ $.fn.hotswap = (options) ->
 
   $(@).each ->
     $swaps = []
-    $swapWrapper = $(this)
+    $swapWrapper = $(@)
     $nav = $swapWrapper.find config.nav
     $swapContainer = $swapWrapper.find config.swaps
     $eachSwap = $swapWrapper.find config.item
@@ -24,9 +71,9 @@ $.fn.hotswap = (options) ->
     speed = config.speed
     ctlPosition = config.ctlPosition
     interval = config.interval
-    swapHeight = parseInt $swapWrapper.height(), 10
-    swapWidth = parseInt $swapWrapper.width(), 10
-    navHeight = parseInt $rightCtl.height(), 10
+    swapHeight = +$swapWrapper.height()
+    swapWidth = +$swapWrapper.width()
+    navHeight = +$rightCtl.height()
     navFromSide = swapWidth / 10
     leftPos = -(swapWidth / 2)
     rightPos = swapWidth - navFromSide
@@ -74,58 +121,13 @@ $.fn.hotswap = (options) ->
     $nav.css 'top', navPos
     $leftCtl.css 'left', navFromSide
     $rightCtl.css 'right', navFromSide
-    $('#' + $swaps[0]).css left
-    $('#' + $swaps[1]).css middle
-    $('#' + $swaps[2]).css right
+    $("##{$swaps[0]}").css left
+    $("##{$swaps[1]}").css middle
+    $("##{$swaps[2]}").css right
 
 
 
 
-
-    # Move left item to center
-    leftSwap = ->
-      $leftCtl.hide()
-      $("#" + $swaps[0]).animate middle, speed
-      $("#" + $swaps[2]).animate right, speed
-      $("#" + $swaps[1]).animate left, speed, -> $leftCtl.show()
-      leftSwapAssign()
-
-
-    # Move left item from center back to left
-    leftSwapReverse = ->
-      $leftCtl.hide()
-      $("#" + $swaps[1]).animate left, speed
-      $("#" + $swaps[2]).animate right, speed
-      $("#" + $swaps[0]).animate middle, speed, -> $leftCtl.show()
-      leftSwapAssign()
-
-    # Assign new array order based on left swap
-    leftSwapAssign = ->
-      temp = $swaps[0]
-      $swaps[0] = $swaps[1]
-      $swaps[1] = temp
-
-    # Move right item to center
-    rightSwap = ->
-      $rightCtl.hide()
-      $("#" + $swaps[1]).animate right, speed
-      $("#" + $swaps[0]).animate left, speed
-      $("#" + $swaps[2]).animate middle, speed, -> $rightCtl.show()
-      rightSwapAssign()
-
-    # Move right item from center back to right
-    rightSwapReverse = ->
-      $rightCtl.hide()
-      $("#" + $swaps[2]).animate middle, speed
-      $("#" + $swaps[0]).animate left, speed
-      $("#" + $swaps[1]).animate right, speed, -> $rightCtl.show()
-      rightSwapAssign()
-
-    # Assign new array order based on right swap
-    rightSwapAssign = ->
-      temp = $swaps[1]
-      $swaps[1] = $swaps[2]
-      $swaps[2] = temp
 
 
     $leftCtl.toggle leftSwap, leftSwapReverse
@@ -144,6 +146,8 @@ $.fn.hotswap = (options) ->
         clearInterval @autoRight
 
       initAutoSwap()
-      $("" + config.leftCtlSelector + ", " + config.rightCtlSelector + "").bind "click", -> killAutoSwap()
+
+      $("#{config.leftCtlSelector}, #{config.rightCtlSelector}").bind "click", ->
+        killAutoSwap()
 
     autoSwap() if config.auto is true
